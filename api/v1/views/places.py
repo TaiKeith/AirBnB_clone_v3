@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Creates a view for Place objects"""
+
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage

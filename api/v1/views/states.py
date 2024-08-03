@@ -10,7 +10,7 @@ from models.state import State
 @app_views.route("/states/<state_id>",
                  methods=["GET", "DELETE"],
                  strict_slashes=False)
-@app_views.route("/states", methods=["POST"], strict_slashes=False)
+@app_views.route("/states", methods=["GET", "POST"], strict_slashes=False)
 def get_state(state_id=None):
     """Retrieved all state in database
     """

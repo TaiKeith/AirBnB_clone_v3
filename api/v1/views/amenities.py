@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""views to handle API action of Amenity class
+"""
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models import storage

@@ -57,4 +57,4 @@ def get_state(state_id=None):
         storage.new(state)
         storage.save()
         storage.close()
-        return jsonify(state.to_dict())
+        return jsonify(state.to_dict()), 201

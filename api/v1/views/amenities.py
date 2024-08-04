@@ -18,7 +18,7 @@ def get_amenities():
                  strict_slashes=False)
 def get_amenity(amenity_id):
     """Retrieves an Amenity object based on its ID"""
-    amenity = storage.get('Amenity', amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     return jsonify(amenity.to_dict())
@@ -28,7 +28,7 @@ def get_amenity(amenity_id):
                  strict_slashes=False)
 def delete_amenity(amenity_id):
     """Deletes an Amenity object based on its ID"""
-    amenity = storage.get('Amenity', amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
     storage.delete(amenity)
@@ -55,8 +55,7 @@ def create_amenity():
                  strict_slashes=False)
 def update_amenity(amenity_id):
     """Updates an Amenity object"""
-    amenity = storage.get('Amenity', amenity_id)
-
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
 
@@ -64,6 +63,7 @@ def update_amenity(amenity_id):
     if not data:
         abort(400, "Not a JSON")
 
+    data = request.get_json()
     ignored_keys = ['id', 'created_at', 'updated_at']
     for key, value in data.items():
         if key not in ignored_keys:

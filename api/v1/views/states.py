@@ -78,4 +78,3 @@ def get_state(state_id=None):
         storage.save()
         storage.close()
         return jsonify(state.to_dict())
-

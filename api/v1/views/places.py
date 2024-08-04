@@ -10,7 +10,7 @@ from models.place import Place
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
-def get_places(city_id):
+def get_places_by_city(city_id):
     """Rerieves the list of all Place objects of a City"""
     city = storage.get(City, city_id)
     if not city:
@@ -19,8 +19,7 @@ def get_places(city_id):
     return jsonify([place.to_dict() for place in places])
 
 
-@app_views.route('/places/<place_id>', methods=['GET'],
-                 strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
 def get_place(place_id):
     """Retrieves a Place object based on its ID"""
     place = storage.get(Place, place_id)

@@ -8,16 +8,17 @@ from models.state import State
 
 
 @app_views.route("/states/<state_id>",
-                 methods=["GET", "DELETE"],
+                 methods=["GET", "DELETE", "PUT"],
                  strict_slashes=False)
-@app_views.route("/states", methods=["GET", "POST"], strict_slashes=False)
+@app_views.route("/states", methods=["GET", "POST"],
+                 strict_slashes=False)
 def get_state(state_id=None):
     """Retrieved all state in database
     """
     # Get the key/value pair of state object in db
     states = storage.all(State)
 
-    # GET Request #
+    # GET REQUESTS #
     if request.method == "GET":
 
         # Return all state if no state_id is pass arg
@@ -58,3 +59,23 @@ def get_state(state_id=None):
         storage.save()
         storage.close()
         return jsonify(state.to_dict()), 201
+
+    # PUT REQUESTS #
+    if request.method == "PUT":
+        data = request.get_json()
+        key = "State." + state_id
+        state = states.get(key)
+
+        if not data:
+            abort(400, "Not a JSON")
+        elif not state:
+            abort(404)
+        elif not data.get("name"):
+            abort(400, "Missing name")
+
+        state.name = data.get("name")
+        storage.new(state)
+        storage.save()
+        storage.close()
+        return jsonify(state.to_dict())
+

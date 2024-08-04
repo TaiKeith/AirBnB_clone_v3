@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Handle views for User related object."""
+"""Handle views for User related object.
+"""
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
@@ -11,7 +12,8 @@ from models import storage
                  methods=["GET", "DELETE", "PUT"],
                  strict_slashes=False)
 def users(user_id=None):
-    """Handle user object request."""
+    """Handle user object request.
+    """
     users = storage.all(User)
 
     # GET REQUEST #

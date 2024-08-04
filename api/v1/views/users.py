@@ -7,7 +7,8 @@ from models import storage
 
 
 @app_views.route("/users", methods=["GET", "POST"], strict_slashes=False)
-@app_views.route("/users/<user_id>", methods=["GET", "DELETE"],
+@app_views.route("/users/<user_id>",
+                 methods=["GET", "DELETE", "PUT"],
                  strict_slashes=False)
 def users(user_id=None):
     """Handle user object request."""
@@ -48,3 +49,20 @@ def users(user_id=None):
         storage.save()
         storage.close()
         return jsonify({}), 200
+
+    # PUT REQUEST #
+    if request.method == "PUT":
+        body = request.get_json()
+        user = users.get("User." + user_id)
+        if not body:
+            abort(400, "Not a JSON")
+        elif not user:
+            abort(404)
+
+        ignore_list = ["id", "email", "create_at", "updated_at"]
+        for key, value in body.items():
+            if key not in ignore_list:
+                setattr(user, key, value)
+        storage.new(user)
+        storage.save()
+        return jsonify(user.to_dict()), 201

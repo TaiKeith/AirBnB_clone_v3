@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Creates a Flask application"""
+"""Creates a Flask application
+"""
 
 from flask import Flask, jsonify
 from models import storage

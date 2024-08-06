@@ -39,7 +39,9 @@ def cities(state_id):
         return jsonify(city.to_dict())
 
 
-@app_views.route("/cities/<city_id>", methods=["GET", "PUT", "DELETE"], strict_slashes=False)
+@app_views.route("/cities/<city_id>",
+                 methods=["GET", "PUT", "DELETE"],
+                 strict_slashes=False)
 def city(city_id):
     """Handle request for city views."""
     cities = storage.all(City)

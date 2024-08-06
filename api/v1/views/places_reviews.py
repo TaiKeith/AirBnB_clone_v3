@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Creates a view for Review objects"""
+"""
+Creates a view for Review objects
+"""
 
 from flask import jsonify, request, abort
 from api.v1.views import app_views
